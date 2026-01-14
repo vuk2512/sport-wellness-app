@@ -356,8 +356,9 @@ function initializeChart() {
                     }]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
+                    responsive: false,
+                    width: 600,
+                    height: 400,
                     plugins: {
                         legend: {
                             display: false

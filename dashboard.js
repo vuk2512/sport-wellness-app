@@ -46,11 +46,19 @@ async function loadDashboardData() {
             last_workout_date: workouts.length ? Math.max(...workouts.map(w => new Date(w.workout_date).getTime())) : null
         };
         
+        // Calculate active days and streak
+        const uniqueDates = [...new Set(workouts.map(w => w.workout_date))];
+        stats.active_days = uniqueDates.length;
+        stats.streak = calculateStreak(workouts);
+        
         // Update stats display
         document.getElementById('totalWorkouts').textContent = stats.total_workouts || 0;
         document.getElementById('totalCalories').textContent = (stats.total_calories || 0).toLocaleString();
-        document.getElementById('activeDays').textContent = stats.active_days || 0; // Mock
-        document.getElementById('streak').textContent = stats.streak || 0; // Mock
+        document.getElementById('activeDays').textContent = stats.active_days || 0;
+        document.getElementById('streak').textContent = stats.streak || 0;
+        
+        // Update goals
+        updateGoals(workouts);
         
         // For now, keep local calculation for goals and other stats
         // TODO: Move all calculations to server
@@ -62,7 +70,15 @@ async function loadDashboardData() {
 function calculateStreak(workouts) {
     if (workouts.length === 0) return 0;
     
-    const dates = workouts.map(w => new Date(w.date)).sort((a, b) => b - a);
+    const dates = [...new Set(workouts.map(w => w.workout_date))].map(d => new Date(d)).sort((a, b) => b - a);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const latest = new Date(dates[0]);
+    latest.setHours(0, 0, 0, 0);
+    
+    // If latest workout is more than 1 day ago, streak is 0
+    if ((today - latest) / (1000 * 60 * 60 * 24) > 1) return 0;
+    
     let streak = 1;
     let currentDate = new Date(dates[0]);
     
@@ -86,8 +102,8 @@ function updateGoals(workouts) {
     
     const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
     
-    const weeklyWorkouts = workouts.filter(w => new Date(w.date) >= weekStart).length;
-    const monthlyWorkouts = workouts.filter(w => new Date(w.date) >= monthStart).length;
+    const weeklyWorkouts = workouts.filter(w => new Date(w.workout_date) >= weekStart).length;
+    const monthlyWorkouts = workouts.filter(w => new Date(w.workout_date) >= monthStart).length;
     
     const weeklyGoal = 4;
     const monthlyGoal = 16;
@@ -138,7 +154,7 @@ function loadWorkoutHistory() {
                         </div>
                         ${workout.notes ? `<p class="text-sm text-gray-400 mt-2">${workout.notes}</p>` : ''}
                     </div>
-                    <button onclick="deleteWorkout(${workout.id})" 
+                    <button onclick="deleteWorkout('${workout.id}')" 
                             class="text-red-500 hover:text-red-700 ml-4">
                         <i class="fas fa-trash"></i>
                     </button>
@@ -298,10 +314,12 @@ function clearAllErrors() {
 
 function deleteWorkout(id) {
     if (confirm('Da li sigurno želiš da obrišeš ovaj trening?')) {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         window.supabase
             .from('workouts')
             .delete()
             .eq('id', id)
+            .eq('user_id', currentUser.id)
             .then(({ error }) => {
                 if (error) {
                     console.error('Error deleting workout:', error);

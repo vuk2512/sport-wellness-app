@@ -68,7 +68,7 @@
                     </div>
                     <div>
                         <label class="block mb-2 text-sm">Poruka</label>
-                        <textarea rows="4" class="w-full bg-dark border border-zinc-700 p-3 rounded focus:border-primary outline-none"></textarea>
+                        <textarea id="contactMessage" rows="4" class="w-full bg-dark border border-zinc-700 p-3 rounded focus:border-primary outline-none"></textarea>
                     </div>
                     <div class="flex items-center gap-2 text-sm text-gray-400">
                         <input type="checkbox" id="newsletter" class="accent-primary">
@@ -98,6 +98,49 @@
         </div>
     </section>
 
+    <!-- Auth Modal -->
+    <div id="authModal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 px-4">
+        <div class="bg-zinc-900 rounded-lg p-8 max-w-md w-full">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="modalTitle" class="text-2xl font-bold">Prijavi se</h2>
+                <button id="closeModal" class="text-2xl hover:text-primary">&times;</button>
+            </div>
+            
+            <form id="authForm" class="space-y-4">
+                <div id="nameField" class="hidden">
+                    <label class="block mb-2">Ime i prezime</label>
+                    <input type="text" id="fullName" 
+                           class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                
+                <div>
+                    <label class="block mb-2">Email</label>
+                    <input type="email" id="email" required
+                           class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                
+                <div>
+                    <label class="block mb-2">Lozinka</label>
+                    <input type="password" id="password" required
+                           class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                
+                <button type="submit" 
+                        class="w-full bg-primary py-3 rounded hover:bg-red-700 transition font-bold">
+                    Prijavi se
+                </button>
+            </form>
+            
+            <div class="mt-4 text-center">
+                <button id="toggleAuth" class="text-primary hover:underline">
+                    Nemaš nalog? Registruj se
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="main.js"></script>
+    <script src="auth.js"></script>
+    <script src="contact.js"></script>
 </body>
 </html>

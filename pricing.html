@@ -48,7 +48,7 @@
         <h2 class="text-4xl font-bold mb-12">Izaberi svoj <span class="text-primary">Plan</span></h2>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-zinc-900 p-8 rounded-lg border border-zinc-800 hover:border-primary transition">
+            <div class="plan-card bg-zinc-900 p-8 rounded-lg border border-zinc-800 hover:border-primary transition">
                 <h3 class="text-xl font-bold mb-4">Basic</h3>
                 <div class="text-4xl font-bold mb-6">2.500 <span class="text-sm text-gray-500">RSD/mesec</span></div>
                 <ul class="text-gray-400 space-y-3 mb-8 text-left">
@@ -56,10 +56,10 @@
                     <li><i class="fas fa-check text-primary mr-2"></i> Svlačionice i tuševi</li>
                     <li class="line-through opacity-50"><i class="fas fa-times mr-2"></i> Grupni treninzi</li>
                 </ul>
-                <button class="w-full border border-primary py-2 rounded hover:bg-primary transition">Odaberi</button>
+                <button class="plan-button w-full border border-primary py-2 rounded hover:bg-primary transition">Odaberi</button>
             </div>
 
-            <div class="bg-zinc-900 p-8 rounded-lg border-2 border-primary transform scale-105">
+            <div class="plan-card bg-zinc-900 p-8 rounded-lg border-2 border-primary transform scale-105">
                 <div class="bg-primary text-xs font-bold uppercase py-1 px-3 inline-block rounded mb-4">Najpopularnije</div>
                 <h3 class="text-xl font-bold mb-4">Standard</h3>
                 <div class="text-4xl font-bold mb-6">3.900 <span class="text-sm text-gray-500">RSD/mesec</span></div>
@@ -68,10 +68,10 @@
                     <li><i class="fas fa-check text-primary mr-2"></i> Svi grupni treninzi</li>
                     <li><i class="fas fa-check text-primary mr-2"></i> Sauna</li>
                 </ul>
-                <button class="w-full bg-primary py-2 rounded font-bold hover:bg-red-700 transition">Odaberi</button>
+                <button class="plan-button w-full bg-primary py-2 rounded font-bold hover:bg-red-700 transition">Odaberi</button>
             </div>
 
-            <div class="bg-zinc-900 p-8 rounded-lg border border-zinc-800 hover:border-primary transition">
+            <div class="plan-card bg-zinc-900 p-8 rounded-lg border border-zinc-800 hover:border-primary transition">
                 <h3 class="text-xl font-bold mb-4">Premium</h3>
                 <div class="text-4xl font-bold mb-6">6.500 <span class="text-sm text-gray-500">RSD/mesec</span></div>
                 <ul class="text-gray-400 space-y-3 mb-8 text-left">
@@ -79,12 +79,54 @@
                     <li><i class="fas fa-check text-primary mr-2"></i> 4 Personalna treninga</li>
                     <li><i class="fas fa-check text-primary mr-2"></i> Plan ishrane</li>
                 </ul>
-                <button class="w-full border border-primary py-2 rounded hover:bg-primary transition">Odaberi</button>
+                <button class="plan-button w-full border border-primary py-2 rounded hover:bg-primary transition">Odaberi</button>
             </div>
         </div>
     </section>
 
+    <!-- Auth Modal -->
+    <div id="authModal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 px-4">
+        <div class="bg-zinc-900 rounded-lg p-8 max-w-md w-full">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="modalTitle" class="text-2xl font-bold">Prijavi se</h2>
+                <button id="closeModal" class="text-2xl hover:text-primary">&times;</button>
+            </div>
+            
+            <form id="authForm" class="space-y-4">
+                <div id="nameField" class="hidden">
+                    <label class="block mb-2">Ime i prezime</label>
+                    <input type="text" id="fullName" 
+                           class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                
+                <div>
+                    <label class="block mb-2">Email</label>
+                    <input type="email" id="email" required
+                           class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                
+                <div>
+                    <label class="block mb-2">Lozinka</label>
+                    <input type="password" id="password" required
+                           class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                
+                <button type="submit" 
+                        class="w-full bg-primary py-3 rounded hover:bg-red-700 transition font-bold">
+                    Prijavi se
+                </button>
+            </form>
+            
+            <div class="mt-4 text-center">
+                <button id="toggleAuth" class="text-primary hover:underline">
+                    Nemaš nalog? Registruj se
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="main.js"></script>
     <script src="auth.js"></script>
+    <script src="pricing.js"></script>
 </body>
 </html>

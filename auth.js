@@ -217,6 +217,12 @@ async function handleLogin(email, password) {
 
         // Close modal and redirect
         document.getElementById('authModal').classList.add('hidden');
+        
+        // Update dashboard link visibility
+        if (typeof updateDashboardLink === 'function') {
+            updateDashboardLink();
+        }
+        
         alert('Uspešno ste se prijavili!');
         window.location.href = 'dashboard.html';
     } catch (error) {

@@ -13,7 +13,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Check if user is logged in and update UI
     updateAuthUI();
+    updateDashboardLink();
 });
+
+// Update Dashboard link visibility
+function updateDashboardLink() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const dashboardLinks = document.querySelectorAll('a[href="dashboard.html"]');
+    
+    dashboardLinks.forEach(link => {
+        if (currentUser) {
+            link.classList.remove('hidden');
+            link.style.display = 'block';
+        } else {
+            link.classList.add('hidden');
+            link.style.display = 'none';
+        }
+    });
+}
 
 // Update Auth UI based on login status
 function updateAuthUI() {
@@ -55,6 +72,10 @@ function logout() {
     if (confirm('Da li sigurno želiš da se odjaviš?')) {
         localStorage.removeItem('currentUser');
         localStorage.removeItem('token');
+        
+        // Update dashboard link visibility
+        updateDashboardLink();
+        
         window.location.href = 'index.html';
     }
 }

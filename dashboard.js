@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadDashboardData();
     loadWorkoutHistory();
     loadCurrentProgram();
+    loadCurrentPlan();
     initializeChart();
     
     // Setup form validation and submission
@@ -195,6 +196,36 @@ function loadCurrentProgram() {
             </div>
         `;
     }
+}
+
+function loadCurrentPlan() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    
+    window.supabase
+        .from('subscriptions')
+        .select('*')
+        .eq('user_id', currentUser.id)
+        .eq('status', 'active')
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .then(({ data: subscriptions, error }) => {
+            if (error) {
+                console.error('Error loading plan:', error);
+                return;
+            }
+
+            const planNameEl = document.getElementById('planName');
+            const planDetailsEl = document.getElementById('planDetails');
+
+            if (subscriptions && subscriptions.length > 0) {
+                const plan = subscriptions[0];
+                planNameEl.textContent = `Paket: ${plan.plan_name}`;
+                planDetailsEl.textContent = `Aktivno od: ${formatDate(plan.start_date)}`;
+            } else {
+                planNameEl.textContent = 'Nemaš aktivni paket';
+                planDetailsEl.textContent = 'Izaberi jedan od dostupnih planova';
+            }
+        });
 }
 
 function getCategoryColor(category) {

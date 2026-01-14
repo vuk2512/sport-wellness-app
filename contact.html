@@ -6,6 +6,7 @@
     <title>Kontakt - Sport & Wellness</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
     <script>
         tailwind.config = { theme: { extend: { colors: { primary: '#B4121B', dark: '#000000' } } } }
@@ -26,6 +27,7 @@
                     <a href="programs.html" class="hover:text-primary transition">Programi</a>
                     <a href="pricing.html" class="hover:text-primary transition">Cenovnik</a>
                     <a href="contact.html" class="text-primary">Kontakt</a>
+                    <a href="dashboard.html" class="dashboard-link hover:text-primary transition hidden">Dashboard</a>
                     <a href="about.html" class="hover:text-primary transition">O nama</a>
                     <button id="authBtn" class="bg-primary px-6 py-2 rounded hover:bg-red-700 transition auth-button">Prijavi se</button>
                 </div>
@@ -37,6 +39,7 @@
                 <a href="programs.html" class="block hover:text-primary transition">Programi</a>
                 <a href="pricing.html" class="block hover:text-primary transition">Cenovnik</a>
                 <a href="contact.html" class="block hover:text-primary transition">Kontakt</a>
+                <a href="dashboard.html" class="dashboard-link block hover:text-primary transition hidden">Dashboard</a>
                 <a href="about.html" class="block hover:text-primary transition">O nama</a>
                 <button class="bg-primary px-6 py-2 rounded w-full auth-button">Prijavi se</button>
             </div>

@@ -1,15 +1,17 @@
 // auth.js - Authentication and Form Validation
 
+// Global variables
+let isLoginMode = true;
+let authModal, authForm, closeModal, toggleAuth, modalTitle, nameField;
+
 document.addEventListener('DOMContentLoaded', function() {
-    const authModal = document.getElementById('authModal');
-    const authForm = document.getElementById('authForm');
-    const closeModal = document.getElementById('closeModal');
-    const toggleAuth = document.getElementById('toggleAuth');
+    authModal = document.getElementById('authModal');
+    authForm = document.getElementById('authForm');
+    closeModal = document.getElementById('closeModal');
+    toggleAuth = document.getElementById('toggleAuth');
+    modalTitle = document.getElementById('modalTitle');
+    nameField = document.getElementById('nameField');
     const authBtns = document.querySelectorAll('.auth-button');
-    const modalTitle = document.getElementById('modalTitle');
-    const nameField = document.getElementById('nameField');
-    
-    let isLoginMode = true;
 
     // Open modal
     authBtns.forEach(btn => {
@@ -251,10 +253,10 @@ async function handleRegister(email, password, name) {
         alert('Uspešno ste kreirali nalog! Sada se prijavite.');
         // Switch to login mode
         isLoginMode = true;
-        modalTitle.textContent = 'Prijavi se';
-        nameField.classList.add('hidden');
-        toggleAuth.textContent = 'Nemaš nalog? Registruj se';
-        authForm.querySelector('button[type="submit"]').textContent = 'Prijavi se';
+        if (modalTitle) modalTitle.textContent = 'Prijavi se';
+        if (nameField) nameField.classList.add('hidden');
+        if (toggleAuth) toggleAuth.textContent = 'Nemaš nalog? Registruj se';
+        if (authForm) authForm.querySelector('button[type="submit"]').textContent = 'Prijavi se';
         resetForm();
     } catch (error) {
         console.error('Register error:', error);

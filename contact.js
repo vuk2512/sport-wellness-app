@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const message = document.getElementById('contactMessage').value.trim();
             const newsletter = document.getElementById('newsletter').checked;
             const typeSelect = document.querySelector('select');
-            const type = typeSelect.value;
+            const type = typeSelect ? typeSelect.value : 'Opšte informacije';
             
             // Validation
             if (!name || !email || !message) {
@@ -21,6 +21,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             try {
+                // Check if window.supabase exists
+                if (!window.supabase) {
+                    console.error('Supabase is not initialized');
+                    alert('Greška: Baza podataka nije dostupna');
+                    return;
+                }
+
                 // Save contact message to database
                 const { data, error } = await window.supabase
                     .from('contact_messages')
@@ -35,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (error) {
                     console.error('Error sending message:', error);
-                    alert('Greška pri slanju poruke. Pokušajte ponovo.');
+                    alert('Greška pri slanju poruke: ' + error.message);
                     return;
                 }
                 
@@ -43,8 +50,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 contactForm.reset();
             } catch (err) {
                 console.error('Contact form error:', err);
-                alert('Greška pri slanju poruke');
+                alert('Greška pri slanju poruke: ' + err.message);
             }
         });
     }
 });
+

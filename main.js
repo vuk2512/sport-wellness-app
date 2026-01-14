@@ -24,10 +24,8 @@ function updateDashboardLink() {
     dashboardLinks.forEach(link => {
         if (currentUser) {
             link.classList.remove('hidden');
-            link.style.display = 'block';
         } else {
             link.classList.add('hidden');
-            link.style.display = 'none';
         }
     });
 }

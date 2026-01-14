@@ -20,6 +20,7 @@ function updateAuthUI() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     const authBtns = document.querySelectorAll('.auth-button');
     const logoutBtn = document.getElementById('logoutBtn');
+    const logoutBtnMobile = document.getElementById('logoutBtnMobile');
     
     if (currentUser) {
         authBtns.forEach(btn => {
@@ -29,6 +30,9 @@ function updateAuthUI() {
         
         if (logoutBtn) {
             logoutBtn.addEventListener('click', logout);
+        }
+        if (logoutBtnMobile) {
+            logoutBtnMobile.addEventListener('click', logout);
         }
     } else {
         authBtns.forEach(btn => {

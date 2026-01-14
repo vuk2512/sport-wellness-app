@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sport & Wellness - O Nama</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#B4121B',
+                        dark: '#000000',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark text-white font-sans">
+    
+    <header class="border-b-2 border-primary bg-dark sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-primary text-2xl font-bold flex items-center gap-2">
+                    <i class="fas fa-dumbbell"></i> Sport & Wellness
+                </a>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="hover:text-primary transition">Početna</a>
+                    <a href="programs.html" class="hover:text-primary transition">Programi</a>
+                    <a href="about.html" class="text-primary font-bold transition">O nama</a>
+                    <button class="auth-button bg-primary px-6 py-2 rounded hover:bg-red-700 transition font-bold">
+                        Prijavi se
+                    </button>
+                </div>
+
+                <button id="mobileMenuBtn" class="md:hidden text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4 border-t border-zinc-800">
+                <a href="index.html" class="block py-2 hover:text-primary">Početna</a>
+                <a href="programs.html" class="block py-2 hover:text-primary">Programi</a>
+                <a href="about.html" class="block py-2 text-primary font-bold">O nama</a>
+                <button class="auth-button w-full text-left py-2 hover:text-primary">Prijavi se</button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="py-20 bg-zinc-900">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Više od obične <span class="text-primary">teretane</span></h1>
+            <p class="text-gray-400 text-xl max-w-2xl mx-auto">
+                Gradimo zajednicu posvećenu zdravlju, snazi i ličnom napretku. Tvoj uspeh je naša misija.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-16 bg-dark">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <div class="w-full h-64 md:h-96 bg-zinc-800 rounded-lg flex items-center justify-center border-2 border-zinc-700">
+                        <i class="fas fa-users text-6xl text-zinc-600"></i>
+                        </div>
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold mb-6">Naša Priča</h2>
+                    <p class="text-gray-400 mb-4">
+                        Osnovani 2023. godine, Sport & Wellness je nastao iz jednostavne ideje: fitnes treba da bude dostupan, razumljiv i prilagođen svakome.
+                    </p>
+                    <p class="text-gray-400 mb-6">
+                        Ne verujemo u brza rešenja. Verujemo u disciplinu, naučni pristup treningu i podršku. Naš prostor je opremljen najsavremenijom opremom, ali naša najveća snaga su naši treneri i naša zajednica.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-zinc-900 p-4 rounded border-l-4 border-primary">
+                            <h4 class="font-bold text-xl mb-1">500+</h4>
+                            <p class="text-sm text-gray-500">Zadovoljnih članova</p>
+                        </div>
+                        <div class="bg-zinc-900 p-4 rounded border-l-4 border-primary">
+                            <h4 class="font-bold text-xl mb-1">20+</h4>
+                            <p class="text-sm text-gray-500">Profesionalnih trenera</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-zinc-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Upoznajte Naš <span class="text-primary">Tim</span></h2>
+                <p class="text-gray-400">Stručnjaci koji su tu da vas vode do cilja.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-dark rounded-lg overflow-hidden border border-zinc-800 hover:border-primary transition group">
+                    <div class="h-64 bg-zinc-800 flex items-center justify-center">
+                        <i class="fas fa-user text-6xl text-zinc-700 group-hover:text-primary transition"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-1">Marko Marković</h3>
+                        <p class="text-primary text-sm mb-3">Glavni Trener</p>
+                        <p class="text-gray-400 text-sm">Specijalista za snagu i kondiciju sa preko 10 godina iskustva.</p>
+                    </div>
+                </div>
+
+                <div class="bg-dark rounded-lg overflow-hidden border border-zinc-800 hover:border-primary transition group">
+                    <div class="h-64 bg-zinc-800 flex items-center justify-center">
+                        <i class="fas fa-user text-6xl text-zinc-700 group-hover:text-primary transition"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-1">Jelena Jelić</h3>
+                        <p class="text-primary text-sm mb-3">Nutricionista & Trener</p>
+                        <p class="text-gray-400 text-sm">Fokusirana na zdrav gubitak težine i funkcionalni trening.</p>
+                    </div>
+                </div>
+
+                <div class="bg-dark rounded-lg overflow-hidden border border-zinc-800 hover:border-primary transition group">
+                    <div class="h-64 bg-zinc-800 flex items-center justify-center">
+                        <i class="fas fa-user text-6xl text-zinc-700 group-hover:text-primary transition"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-1">Stefan Stanić</h3>
+                        <p class="text-primary text-sm mb-3">CrossFit Instruktor</p>
+                        <p class="text-gray-400 text-sm">Ekspert za visoki intenzitet i grupne treninge.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-dark">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Zašto izabrati <span class="text-primary">nas?</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="p-6 bg-zinc-900 rounded-lg text-center hover:bg-zinc-800 transition">
+                    <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">24/7 Pristup</h3>
+                    <p class="text-sm text-gray-400">Trenirajte kada vama odgovara, bez ograničenja.</p>
+                </div>
+
+                <div class="p-6 bg-zinc-900 rounded-lg text-center hover:bg-zinc-800 transition">
+                    <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Top Oprema</h3>
+                    <p class="text-sm text-gray-400">Najnovije mašine brendova Technogym i Rogue.</p>
+                </div>
+
+                <div class="p-6 bg-zinc-900 rounded-lg text-center hover:bg-zinc-800 transition">
+                    <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
+                        <i class="fas fa-shower"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Luksuzne Svlačionice</h3>
+                    <p class="text-sm text-gray-400">Prostrane, čiste svlačionice sa saunom.</p>
+                </div>
+
+                <div class="p-6 bg-zinc-900 rounded-lg text-center hover:bg-zinc-800 transition">
+                    <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
+                        <i class="fas fa-heart-pulse"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Praćenje Napretka</h3>
+                    <p class="text-sm text-gray-400">Digitalna aplikacija za praćenje svih vaših rezultata.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-zinc-900 border-t border-zinc-800 pt-12 pb-6">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="text-primary text-2xl font-bold flex items-center gap-2 mb-4">
+                        <i class="fas fa-dumbbell"></i> Sport & Wellness
+                    </div>
+                    <p class="text-gray-400 text-sm">
+                        Vaš partner u postizanju vrhunske forme i zdravog načina života.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold mb-4 text-lg">Brzi Linkovi</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="index.html" class="hover:text-primary transition">Početna</a></li>
+                        <li><a href="about.html" class="hover:text-primary transition">O nama</a></li>
+                        <li><a href="programs.html" class="hover:text-primary transition">Programi</a></li>
+                        <li><a href="#" class="hover:text-primary transition">Cenovnik</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold mb-4 text-lg">Kontakt</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-map-marker-alt text-primary"></i>
+                            Bulevar Oslobođenja 123
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-phone text-primary"></i>
+                            +381 60 123 4567
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-envelope text-primary"></i>
+                            info@sportwellness.rs
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-zinc-800 pt-6 text-center text-gray-500 text-sm">
+                <p>&copy; 2023 Sport & Wellness. Sva prava zadržana.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="authModal" class="fixed inset-0 bg-black/80 hidden z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-zinc-900 p-8 rounded-lg max-w-md w-full border border-zinc-700 relative">
+            <button id="closeModal" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            
+            <h2 id="modalTitle" class="text-2xl font-bold mb-6 text-center text-primary">Prijavi se</h2>
+            
+            <form id="authForm" class="space-y-4">
+                <div id="nameField" class="hidden">
+                    <label class="block mb-2">Ime i prezime</label>
+                    <input type="text" id="fullName" 
+                           class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                
+                <div>
+                    <label class="block mb-2">Email</label>
+                    <input type="email" id="email" required
+                           class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                
+                <div>
+                    <label class="block mb-2">Lozinka</label>
+                    <input type="password" id="password" required
+                           class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                
+                <button type="submit" 
+                        class="w-full bg-primary py-3 rounded hover:bg-red-700 transition font-bold">
+                    Prijavi se
+                </button>
+            </form>
+            
+            <div class="mt-4 text-center">
+                <button id="toggleAuth" class="text-primary hover:underline">
+                    Nemaš nalog? Registruj se
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>

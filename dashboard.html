@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sport & Wellness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#B4121B',
+                        dark: '#000000',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark text-white">
+    
+    <!-- Header -->
+    <header class="border-b-2 border-primary bg-dark sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-primary text-2xl font-bold tracking-wider">
+                    <i class="fas fa-dumbbell"></i> SPORT & WELLNESS
+                </div>
+                
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="hover:text-primary transition">Početna</a>
+                    <a href="programs.html" class="hover:text-primary transition">Programi</a>
+                    <a href="dashboard.html" class="text-primary">Dashboard</a>
+                    <button id="logoutBtn" class="bg-primary px-6 py-2 rounded hover:bg-red-700 transition">
+                        Odjavi se
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mx-auto px-6 py-12">
+        <!-- Welcome Section -->
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold mb-2">Tvoj Dashboard</h1>
+            <p id="welcomeMessage" class="text-gray-400 text-xl"></p>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="grid md:grid-cols-4 gap-6 mb-12">
+            <div class="bg-zinc-900 p-6 rounded-lg border-l-4 border-primary">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-gray-400 mb-2">Ukupno Treninga</p>
+                        <p id="totalWorkouts" class="text-3xl font-bold">0</p>
+                    </div>
+                    <i class="fas fa-dumbbell text-3xl text-primary"></i>
+                </div>
+            </div>
+
+            <div class="bg-zinc-900 p-6 rounded-lg border-l-4 border-green-600">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-gray-400 mb-2">Kalorije</p>
+                        <p id="totalCalories" class="text-3xl font-bold">0</p>
+                    </div>
+                    <i class="fas fa-fire text-3xl text-green-600"></i>
+                </div>
+            </div>
+
+            <div class="bg-zinc-900 p-6 rounded-lg border-l-4 border-blue-600">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-gray-400 mb-2">Aktivni Dani</p>
+                        <p id="activeDays" class="text-3xl font-bold">0</p>
+                    </div>
+                    <i class="fas fa-calendar-check text-3xl text-blue-600"></i>
+                </div>
+            </div>
+
+            <div class="bg-zinc-900 p-6 rounded-lg border-l-4 border-purple-600">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-gray-400 mb-2">Streak</p>
+                        <p id="streak" class="text-3xl font-bold">0</p>
+                    </div>
+                    <i class="fas fa-trophy text-3xl text-purple-600"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid lg:grid-cols-3 gap-8">
+            
+            <!-- Left Column - Form -->
+            <div class="lg:col-span-2 space-y-8">
+                
+                <!-- Add Workout Form -->
+                <div class="bg-zinc-900 p-8 rounded-lg">
+                    <h2 class="text-2xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-plus-circle text-primary mr-3"></i>
+                        Dodaj Novi Trening
+                    </h2>
+                    
+                    <form id="workoutForm" class="space-y-4">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block mb-2 text-sm font-semibold">Tip Treninga *</label>
+                                <select id="workoutType" required
+                                        class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                                    <option value="">Izaberi tip</option>
+                                    <option value="fitness">Fitness</option>
+                                    <option value="cardio">Cardio</option>
+                                    <option value="wellness">Wellness</option>
+                                    <option value="crossfit">CrossFit</option>
+                                </select>
+                                <span id="typeError" class="text-red-500 text-sm hidden">Molimo izaberite tip treninga</span>
+                            </div>
+
+                            <div>
+                                <label class="block mb-2 text-sm font-semibold">Trajanje (min) *</label>
+                                <input type="number" id="duration" required min="1" max="300"
+                                       class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                                       placeholder="45">
+                                <span id="durationError" class="text-red-500 text-sm hidden">Trajanje mora biti između 1 i 300 minuta</span>
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block mb-2 text-sm font-semibold">Kalorije *</label>
+                                <input type="number" id="calories" required min="1" max="2000"
+                                       class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                                       placeholder="350">
+                                <span id="caloriesError" class="text-red-500 text-sm hidden">Kalorije moraju biti između 1 i 2000</span>
+                            </div>
+
+                            <div>
+                                <label class="block mb-2 text-sm font-semibold">Datum *</label>
+                                <input type="date" id="workoutDate" required
+                                       class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                                <span id="dateError" class="text-red-500 text-sm hidden">Molimo unesite validan datum</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block mb-2 text-sm font-semibold">Intenzitet *</label>
+                            <div class="flex gap-4">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="intensity" value="low" required
+                                           class="mr-2 w-4 h-4 text-primary">
+                                    <span>Nizak</span>
+                                </label>
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="intensity" value="medium" required
+                                           class="mr-2 w-4 h-4">
+                                    <span>Srednji</span>
+                                </label>
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="intensity" value="high" required
+                                           class="mr-2 w-4 h-4">
+                                    <span>Visok</span>
+                                </label>
+                            </div>
+                            <span id="intensityError" class="text-red-500 text-sm hidden">Molimo izaberite intenzitet</span>
+                        </div>
+
+                        <div>
+                            <label class="block mb-2 text-sm font-semibold">Lokacija</label>
+                            <div class="flex gap-4 flex-wrap">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="checkbox" value="gym" class="mr-2 w-4 h-4">
+                                    <span>Teretana</span>
+                                </label>
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="checkbox" value="home" class="mr-2 w-4 h-4">
+                                    <span>Kuća</span>
+                                </label>
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="checkbox" value="outdoor" class="mr-2 w-4 h-4">
+                                    <span>Napolju</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block mb-2 text-sm font-semibold">Ocena Treninga</label>
+                            <select id="rating"
+                                    class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                                <option value="">Oceni trening</option>
+                                <option value="5">⭐⭐⭐⭐⭐ Odličan</option>
+                                <option value="4">⭐⭐⭐⭐ Dobar</option>
+                                <option value="3">⭐⭐⭐ Solidan</option>
+                                <option value="2">⭐⭐ Slab</option>
+                                <option value="1">⭐ Loš</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block mb-2 text-sm font-semibold">Napomene</label>
+                            <textarea id="notes" rows="3"
+                                      class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                                      placeholder="Kako si se osećao/la tokom treninga..."></textarea>
+                        </div>
+
+                        <button type="submit" 
+                                class="w-full bg-primary py-3 rounded hover:bg-red-700 transition font-bold text-lg">
+                            <i class="fas fa-plus mr-2"></i> Dodaj Trening
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Workout History -->
+                <div class="bg-zinc-900 p-8 rounded-lg">
+                    <h2 class="text-2xl font-bold mb-6">Istorija Treninga</h2>
+                    <div id="workoutHistory" class="space-y-4">
+                        <p class="text-gray-400 text-center py-8">Još nemaš zabeleženih treninga. Dodaj prvi!</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Column - Stats -->
+            <div class="space-y-8">
+                
+                <!-- Current Program -->
+                <div class="bg-zinc-900 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-4">Trenutni Program</h3>
+                    <div id="currentProgram">
+                        <p class="text-gray-400">Nisi odabrao/la program</p>
+                        <a href="programs.html" class="text-primary hover:underline">Odaberi program</a>
+                    </div>
+                </div>
+
+                <!-- Progress Chart -->
+                <div class="bg-zinc-900 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-4">Nedeljni Progres</h3>
+                    <canvas id="progressChart" height="200"></canvas>
+                </div>
+
+                <!-- Goals -->
+                <div class="bg-zinc-900 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-4">Ciljevi</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Nedeljni Treninzi</span>
+                                <span id="weeklyProgress">0/4</span>
+                            </div>
+                            <div class="w-full bg-zinc-700 rounded-full h-2">
+                                <div id="weeklyBar" class="bg-primary h-2 rounded-full" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Mesečni Treninzi</span>
+                                <span id="monthlyProgress">0/16</span>
+                            </div>
+                            <div class="w-full bg-zinc-700 rounded-full h-2">
+                                <div id="monthlyBar" class="bg-green-600 h-2 rounded-full" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

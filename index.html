@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sport & Wellness - Početna</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#B4121B',
+                        dark: '#000000',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark text-white font-sans">
+    
+    <!-- Header -->
+    <header class="border-b-2 border-primary bg-dark sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-primary text-2xl font-bold tracking-wider">
+                    <i class="fas fa-dumbbell"></i> SPORT & WELLNESS
+                </a>
+                
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="hover:text-primary transition">Početna</a>
+                    <a href="programs.html" class="hover:text-primary transition">Programi</a>
+                    <a href="dashboard.html" class="hover:text-primary transition">Dashboard</a>
+                    <button id="authBtn" class="bg-primary px-6 py-2 rounded hover:bg-red-700 transition auth-button">
+                        Prijavi se
+                    </button>
+                </div>
+                
+                <button id="mobileMenuBtn" class="md:hidden text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4 space-y-4">
+                <a href="index.html" class="block hover:text-primary transition">Početna</a>
+                <a href="programs.html" class="block hover:text-primary transition">Programi</a>
+                <a href="dashboard.html" class="block hover:text-primary transition">Dashboard</a>
+                <button class="bg-primary px-6 py-2 rounded w-full auth-button">Prijavi se</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center text-center">
+        <div class="absolute inset-0 bg-cover bg-center" 
+             style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1920');">
+        </div>
+        
+        <div class="relative z-10 px-4">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4 animate-fade-in">
+                Snaga. Fokus. Balans.
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 text-gray-300">
+                Telo koje radi za tebe
+            </p>
+            <button onclick="window.location.href='programs.html'" 
+                    class="bg-primary px-8 py-4 text-lg rounded hover:bg-red-700 transition transform hover:scale-105">
+                Započni danas <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-zinc-900">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16">Zašto Baš Mi?</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-zinc-800 p-8 rounded-lg border-l-4 border-primary hover:transform hover:scale-105 transition">
+                    <i class="fas fa-chart-line text-5xl text-primary mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">Praćenje Napretka</h3>
+                    <p class="text-gray-400">Detaljne statistike i grafikoni tvog napretka u realnom vremenu.</p>
+                </div>
+                
+                <div class="bg-zinc-800 p-8 rounded-lg border-l-4 border-primary hover:transform hover:scale-105 transition">
+                    <i class="fas fa-dumbbell text-5xl text-primary mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">Personalizovani Programi</h3>
+                    <p class="text-gray-400">Prilagođeni treninzi na osnovu tvojih ciljeva i mogućnosti.</p>
+                </div>
+                
+                <div class="bg-zinc-800 p-8 rounded-lg border-l-4 border-primary hover:transform hover:scale-105 transition">
+                    <i class="fas fa-brain text-5xl text-primary mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">Mentalno Zdravlje</h3>
+                    <p class="text-gray-400">Wellness saveti za potpuni balans tela i uma.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Preview -->
+    <section class="py-20 bg-dark">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4">Naši Programi</h2>
+            <p class="text-center text-gray-400 mb-16">Odaberi program koji odgovara tvojim ciljevima</p>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="group relative overflow-hidden rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600" 
+                         alt="Fitness" class="w-full h-80 object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent flex items-end p-6">
+                        <div>
+                            <h3 class="text-2xl font-bold">Fitness</h3>
+                            <p class="text-gray-300">Izgradnja mišićne mase</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="group relative overflow-hidden rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600" 
+                         alt="Cardio" class="w-full h-80 object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent flex items-end p-6">
+                        <div>
+                            <h3 class="text-2xl font-bold">Cardio</h3>
+                            <p class="text-gray-300">Izdržljivost i kondicija</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="group relative overflow-hidden rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600" 
+                         alt="Wellness" class="w-full h-80 object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent flex items-end p-6">
+                        <div>
+                            <h3 class="text-2xl font-bold">Wellness</h3>
+                            <p class="text-gray-300">Yoga i meditacija</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="programs.html" 
+                   class="inline-block bg-primary px-8 py-3 rounded hover:bg-red-700 transition">
+                    Vidi sve programe <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-20 bg-zinc-900">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-5xl font-bold text-primary mb-2">1000+</div>
+                    <div class="text-gray-400">Aktivnih Korisnika</div>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold text-primary mb-2">50+</div>
+                    <div class="text-gray-400">Treninga</div>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold text-primary mb-2">24/7</div>
+                    <div class="text-gray-400">Podrška</div>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold text-primary mb-2">98%</div>
+                    <div class="text-gray-400">Zadovoljstvo</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-zinc-950 py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-primary text-xl font-bold mb-4">
+                        <i class="fas fa-dumbbell"></i> SPORT & WELLNESS
+                    </h3>
+                    <p class="text-gray-400">Tvoj put ka boljem zdravlju počinje ovde.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Linkovi</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-primary transition">O nama</a></li>
+                        <li><a href="#" class="hover:text-primary transition">Uslovi korišćenja</a></li>
+                        <li><a href="#" class="hover:text-primary transition">Privatnost</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Kontakt</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><i class="fas fa-envelope"></i> info@sportwellness.rs</li>
+                        <li><i class="fas fa-phone"></i> +381 11 123 4567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Beograd, Srbija</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Društvene Mreže</h4>
+                    <div class="flex space-x-4 text-2xl">
+                        <a href="#" class="hover:text-primary transition"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="hover:text-primary transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="hover:text-primary transition"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-zinc-800 pt-8 text-center text-gray-400">
+                <p>&copy; 2026 Sport & Wellness. Sva prava zadržana.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 px-4">
+        <div class="bg-zinc-900 rounded-lg p-8 max-w-md w-full">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="modalTitle" class="text-2xl font-bold">Prijavi se</h2>
+                <button id="closeModal" class="text-2xl hover:text-primary">&times;</button>
+            </div>
+            
+            <form id="authForm" class="space-y-4">
+                <div id="nameField" class="hidden">
+                    <label class="block mb-2">Ime i prezime</label>
+                    <input type="text" id="fullName" 
+                           class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                
+                <div>
+                    <label class="block mb-2">Email</label>
+                    <input type="email" id="email" required
+                           class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                
+                <div>
+                    <label class="block mb-2">Lozinka</label>
+                    <input type="password" id="password" required
+                           class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                
+                <button type="submit" 
+                        class="w-full bg-primary py-3 rounded hover:bg-red-700 transition font-bold">
+                    Prijavi se
+                </button>
+            </form>
+            
+            <div class="mt-4 text-center">
+                <button id="toggleAuth" class="text-primary hover:underline">
+                    Nemaš nalog? Registruj se
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programi - Sport & Wellness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#B4121B',
+                        dark: '#000000',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark text-white">
+    
+    <!-- Header -->
+    <header class="border-b-2 border-primary bg-dark sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-primary text-2xl font-bold tracking-wider">
+                    <i class="fas fa-dumbbell"></i> SPORT & WELLNESS
+                </a>
+                
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="hover:text-primary transition">Početna</a>
+                    <a href="programs.html" class="text-primary">Programi</a>
+                    <a href="dashboard.html" class="hover:text-primary transition">Dashboard</a>
+                    <button id="authBtn" class="bg-primary px-6 py-2 rounded hover:bg-red-700 transition auth-button">
+                        Prijavi se
+                    </button>
+                </div>
+                
+                <button id="mobileMenuBtn" class="md:hidden text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4 space-y-4">
+                <a href="index.html" class="block hover:text-primary transition">Početna</a>
+                <a href="programs.html" class="block hover:text-primary transition">Programi</a>
+                <a href="dashboard.html" class="block hover:text-primary transition">Dashboard</a>
+                <button class="bg-primary px-6 py-2 rounded w-full auth-button">Prijavi se</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="bg-zinc-900 py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-5xl font-bold mb-4">Trening Programi</h1>
+            <p class="text-xl text-gray-400">Odaberi program koji odgovara tvojim ciljevima</p>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="bg-zinc-800 py-6 sticky top-20 z-40">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-wrap gap-4 justify-center">
+                <button class="filter-btn active bg-primary px-6 py-2 rounded" data-filter="all">
+                    Svi Programi
+                </button>
+                <button class="filter-btn bg-zinc-700 px-6 py-2 rounded hover:bg-primary transition" data-filter="fitness">
+                    Fitness
+                </button>
+                <button class="filter-btn bg-zinc-700 px-6 py-2 rounded hover:bg-primary transition" data-filter="cardio">
+                    Cardio
+                </button>
+                <button class="filter-btn bg-zinc-700 px-6 py-2 rounded hover:bg-primary transition" data-filter="wellness">
+                    Wellness
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Grid -->
+    <section class="py-16 bg-dark">
+        <div class="container mx-auto px-6">
+            <div id="programsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Program Card 1 -->
+                <div class="program-card bg-zinc-900 rounded-lg overflow-hidden" data-category="fitness">
+                    <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600" 
+                         alt="Snaga" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-primary px-3 py-1 rounded text-sm">Fitness</span>
+                            <span class="text-gray-400"><i class="fas fa-clock"></i> 45 min</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Snaga i Masa</h3>
+                        <p class="text-gray-400 mb-4">Program za izgradnju mišićne mase i povećanje snage.</p>
+                        <ul class="space-y-2 mb-4 text-sm text-gray-400">
+                            <li><i class="fas fa-check text-primary"></i> 4 treninga nedeljno</li>
+                            <li><i class="fas fa-check text-primary"></i> Fokus na složene vežbe</li>
+                            <li><i class="fas fa-check text-primary"></i> Za srednji nivo</li>
+                        </ul>
+                        <button class="w-full bg-primary py-2 rounded hover:bg-red-700 transition" 
+                                onclick="selectProgram('Snaga i Masa', 'fitness')">
+                            Odaberi Program
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Program Card 2 -->
+                <div class="program-card bg-zinc-900 rounded-lg overflow-hidden" data-category="cardio">
+                    <img src="https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=600" 
+                         alt="Cardio" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-green-600 px-3 py-1 rounded text-sm">Cardio</span>
+                            <span class="text-gray-400"><i class="fas fa-clock"></i> 30 min</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">HIIT Cardio</h3>
+                        <p class="text-gray-400 mb-4">Visoko-intenzivni intervalni trening za sagorevanje masti.</p>
+                        <ul class="space-y-2 mb-4 text-sm text-gray-400">
+                            <li><i class="fas fa-check text-primary"></i> 3-5 treninga nedeljno</li>
+                            <li><i class="fas fa-check text-primary"></i> Brzo sagorevanje kalorija</li>
+                            <li><i class="fas fa-check text-primary"></i> Za sve nivoe</li>
+                        </ul>
+                        <button class="w-full bg-primary py-2 rounded hover:bg-red-700 transition"
+                                onclick="selectProgram('HIIT Cardio', 'cardio')">
+                            Odaberi Program
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Program Card 3 -->
+                <div class="program-card bg-zinc-900 rounded-lg overflow-hidden" data-category="wellness">
+                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600" 
+                         alt="Yoga" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-purple-600 px-3 py-1 rounded text-sm">Wellness</span>
+                            <span class="text-gray-400"><i class="fas fa-clock"></i> 60 min</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Yoga & Meditacija</h3>
+                        <p class="text-gray-400 mb-4">Za balans uma i tela, smanjenje stresa.</p>
+                        <ul class="space-y-2 mb-4 text-sm text-gray-400">
+                            <li><i class="fas fa-check text-primary"></i> Dnevna praksa</li>
+                            <li><i class="fas fa-check text-primary"></i> Poboljšana fleksibilnost</li>
+                            <li><i class="fas fa-check text-primary"></i> Za početnike</li>
+                        </ul>
+                        <button class="w-full bg-primary py-2 rounded hover:bg-red-700 transition"
+                                onclick="selectProgram('Yoga & Meditacija', 'wellness')">
+                            Odaberi Program
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Program Card 4 -->
+                <div class="program-card bg-zinc-900 rounded-lg overflow-hidden" data-category="fitness">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600" 
+                         alt="CrossFit" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-primary px-3 py-1 rounded text-sm">Fitness</span>
+                            <span class="text-gray-400"><i class="fas fa-clock"></i> 60 min</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">CrossFit WOD</h3>
+                        <p class="text-gray-400 mb-4">Funkcionalni trening za kompletnu kondiciju.</p>
+                        <ul class="space-y-2 mb-4 text-sm text-gray-400">
+                            <li><i class="fas fa-check text-primary"></i> 5 treninga nedeljno</li>
+                            <li><i class="fas fa-check text-primary"></i> Raznovrsne vežbe</li>
+                            <li><i class="fas fa-check text-primary"></i> Za napredne</li>
+                        </ul>
+                        <button class="w-full bg-primary py-2 rounded hover:bg-red-700 transition"
+                                onclick="selectProgram('CrossFit WOD', 'fitness')">
+                            Odaberi Program
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Program Card 5 -->
+                <div class="program-card bg-zinc-900 rounded-lg overflow-hidden" data-category="cardio">
+                    <img src="https://images.unsplash.com/photo-1502904550040-7534597429ae?w=600" 
+                         alt="Trčanje" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-green-600 px-3 py-1 rounded text-sm">Cardio</span>
+                            <span class="text-gray-400"><i class="fas fa-clock"></i> 40 min</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Trčanje 5K</h3>
+                        <p class="text-gray-400 mb-4">Od kauča do 5 kilometara za 8 nedelja.</p>
+                        <ul class="space-y-2 mb-4 text-sm text-gray-400">
+                            <li><i class="fas fa-check text-primary"></i> 3 treninga nedeljno</li>
+                            <li><i class="fas fa-check text-primary"></i> Postepeno povećanje</li>
+                            <li><i class="fas fa-check text-primary"></i> Za početnike</li>
+                        </ul>
+                        <button class="w-full bg-primary py-2 rounded hover:bg-red-700 transition"
+                                onclick="selectProgram('Trčanje 5K', 'cardio')">
+                            Odaberi Program
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Program Card 6 -->
+                <div class="program-card bg-zinc-900 rounded-lg overflow-hidden" data-category="wellness">
+                    <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=600" 
+                         alt="Pilates" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-purple-600 px-3 py-1 rounded text-sm">Wellness</span>
+                            <span class="text-gray-400"><i class="fas fa-clock"></i> 45 min</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Pilates Core</h3>
+                        <p class="text-gray-400 mb-4">Jačanje jezgra i poboljšanje drŽanja tela.</p>
+                        <ul class="space-y-2 mb-4 text-sm text-gray-400">
+                            <li><i class="fas fa-check text-primary"></i> 3 treninga nedeljno</li>
+                            <li><i class="fas fa-check text-primary"></i> Fokus na core</li>
+                            <li><i class="fas fa-check text-primary"></i> Za sve nivoe</li>
+                        </ul>
+                        <button class="w-full bg-primary py-2 rounded hover:bg-red-700 transition"
+                                onclick="selectProgram('Pilates Core', 'wellness')">
+                            Odaberi Program
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-primary py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-4">Spreman/na za Promenu?</h2>
+            <p class="text-xl mb-8">Napravi nalog i počni sa praćenjem svog napretka danas!</p>
+            <button onclick="window.location.href='dashboard.html'" 
+                    class="bg-white text-primary px-8 py-3 rounded hover:bg-gray-200 transition font-bold">
+                Kreni Sada <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-zinc-950 py-12">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <p>&copy; 2026 Sport & Wellness. Sva prava zadržana.</p>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 px-4">
+        <div class="bg-zinc-900 rounded-lg p-8 max-w-md w-full">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="modalTitle" class="text-2xl font-bold">Prijavi se</h2>
+                <button id="closeModal" class="text-2xl hover:text-primary">&times;</button>
+            </div>
+            
+            <form id="authForm" class="space-y-4">
+                <div id="nameField" class="hidden">
+                    <label class="block mb-2">Ime i prezime</label>
+                    <input type="text" id="fullName" 
+                           class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                
+                <div>
+                    <label class="block mb-2">Email</label>
+                    <input type="email" id="email" required
+                           class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                
+                <div>
+                    <label class="block mb-2">Lozinka</label>
+                    <input type="password" id="password" required
+                           class="w-full bg-zinc-800 px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                
+                <button type="submit" 
+                        class="w-full bg-primary py-3 rounded hover:bg-red-700 transition font-bold">
+                    Prijavi se
+                </button>
+            </form>
+            
+            <div class="mt-4 text-center">
+                <button id="toggleAuth" class="text-primary hover:underline">
+                    Nemaš nalog? Registruj se
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const programCards = document.querySelectorAll('.program-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+                
+                filterBtns.forEach(b => b.classList.remove('active', 'bg-primary'));
+                filterBtns.forEach(b => b.classList.add('bg-zinc-700'));
+                btn.classList.add('active', 'bg-primary');
+                btn.classList.remove('bg-zinc-700');
+
+                programCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        function selectProgram(name, category) {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            
+            if (!user) {
+                alert('Morate se prijaviti da biste odabrali program!');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            const programData = {
+                name: name,
+                category: category,
+                startDate: new Date().toISOString(),
+                userId: user.email
+            };
+
+            localStorage.setItem('selectedProgram', JSON.stringify(programData));
+            alert(`Uspešno ste odabrali program: ${name}!`);
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+    <script src="main.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>

@@ -16,11 +16,38 @@
                     colors: {
                         primary: '#B4121B',
                         dark: '#000000',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in forwards',
+                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
                     }
                 }
             }
         }
     </script>
+    <style>
+        [data-animate] {
+            animation: slideUp 0.6s ease-out forwards;
+        }
+        [data-animate="1"] { animation-delay: 0.1s; }
+        [data-animate="2"] { animation-delay: 0.2s; }
+        [data-animate="3"] { animation-delay: 0.3s; }
+        [data-animate="4"] { animation-delay: 0.4s; }
+        [data-animate="5"] { animation-delay: 0.5s; }
+        [data-animate="6"] { animation-delay: 0.6s; }
+        [data-animate="7"] { animation-delay: 0.7s; }
+        [data-animate="8"] { animation-delay: 0.8s; }
+    </style>
 </head>
 <body class="bg-dark text-white font-sans">
     
@@ -38,7 +65,7 @@
                     <a href="contact.html" class="hover:text-primary transition">Kontakt</a>
                     <a href="dashboard.html" class="dashboard-link hover:text-primary transition hidden">Dashboard</a>
                     <a href="about.html" class="text-primary font-bold transition">O nama</a>
-                    <button class="auth-button bg-primary px-6 py-2 rounded hover:bg-red-700 transition font-bold">
+                    <button id="authBtn" class="bg-primary px-6 py-2 rounded hover:bg-red-700 transition auth-button font-bold">
                         Prijavi se
                     </button>
                 </div>
@@ -55,15 +82,15 @@
                 <a href="contact.html" class="block py-2 hover:text-primary">Kontakt</a>
                 <a href="dashboard.html" class="dashboard-link block py-2 hover:text-primary hidden">Dashboard</a>
                 <a href="about.html" class="block py-2 text-primary font-bold">O nama</a>
-                <button class="auth-button w-full text-left py-2 hover:text-primary">Prijavi se</button>
+                <button class="auth-button w-full text-left py-2 hover:text-primary font-bold">Prijavi se</button>
             </div>
         </nav>
     </header>
 
     <section class="py-20 bg-zinc-900">
         <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6">Više od obične <span class="text-primary">teretane</span></h1>
-            <p class="text-gray-400 text-xl max-w-2xl mx-auto">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 opacity-0 animate-fade-in" style="animation-delay: 0s;">Više od obične <span class="text-primary">teretane</span></h1>
+            <p class="text-gray-400 text-xl max-w-2xl mx-auto opacity-0 animate-fade-in" style="animation-delay: 0.2s;">
                 Gradimo zajednicu posvećenu zdravlju, snazi i ličnom napretku. Tvoj uspeh je naša misija.
             </p>
         </div>
@@ -72,12 +99,12 @@
     <section class="py-16 bg-dark">
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="md:w-1/2">
+                <div class="md:w-1/2 opacity-0 animate-fade-in" style="animation-delay: 0.1s;">
                     <div class="w-full h-64 md:h-96 bg-zinc-800 rounded-lg overflow-hidden border-2 border-zinc-700">
                         <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=400&fit=crop" alt="Teretana" class="w-full h-full object-cover">
                     </div>
                 </div>
-                <div class="md:w-1/2">
+                <div class="md:w-1/2 opacity-0 animate-fade-in" style="animation-delay: 0.3s;">
                     <h2 class="text-3xl font-bold mb-6">Naša Priča</h2>
                     <p class="text-gray-400 mb-4">
                         Osnovani 2023. godine, Sport & Wellness je nastao iz jednostavne ideje: fitnes treba da bude dostupan, razumljiv i prilagođen svakome.
@@ -108,18 +135,18 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-dark rounded-lg overflow-hidden border border-zinc-800 hover:border-primary transition group">
+                <div class="bg-dark rounded-lg overflow-hidden border border-zinc-800 hover:border-primary transition group opacity-0 animate-fade-in" style="animation-delay: 0.1s;">
                     <div class="h-64 bg-zinc-800 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop" alt="Marko Marković" class="w-full h-full object-cover group-hover:scale-110 transition">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-1">Marko Marković</h3>
                         <p class="text-primary text-sm mb-3">Glavni Trener</p>
-                        <p class="text-gray-400 text-sm">Specijalista za snagu i kondiciju sa över 10 godina iskustva.</p>
+                        <p class="text-gray-400 text-sm">Specijalista za snagu i kondiciju sa više od 10 godina iskustva.</p>
                     </div>
                 </div>
 
-                <div class="bg-dark rounded-lg overflow-hidden border border-zinc-800 hover:border-primary transition group">
+                <div class="bg-dark rounded-lg overflow-hidden border border-zinc-800 hover:border-primary transition group opacity-0 animate-fade-in" style="animation-delay: 0.2s;">
                     <div class="h-64 bg-zinc-800 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=300&fit=crop" alt="Jelena Jelić" class="w-full h-full object-cover group-hover:scale-110 transition">
                     </div>
@@ -130,7 +157,7 @@
                     </div>
                 </div>
 
-                <div class="bg-dark rounded-lg overflow-hidden border border-zinc-800 hover:border-primary transition group">
+                <div class="bg-dark rounded-lg overflow-hidden border border-zinc-800 hover:border-primary transition group opacity-0 animate-fade-in" style="animation-delay: 0.3s;">
                     <div class="h-64 bg-zinc-800 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=300&fit=crop" alt="Stefan Stanić" class="w-full h-full object-cover group-hover:scale-110 transition">
                     </div>
@@ -146,10 +173,10 @@
 
     <section class="py-16 bg-dark">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-12">Zašto izabrati <span class="text-primary">nas?</span></h2>
+            <h2 class="text-3xl font-bold text-center mb-12 opacity-0 animate-fade-in" style="animation-delay: 0s;">Zašto izabrati <span class="text-primary">nas?</span></h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="p-6 bg-zinc-900 rounded-lg text-center hover:bg-zinc-800 transition">
+                <div class="p-6 bg-zinc-900 rounded-lg text-center hover:bg-zinc-800 transition opacity-0 animate-fade-in" style="animation-delay: 0.1s;">
                     <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
                         <i class="fas fa-clock"></i>
                     </div>
@@ -157,7 +184,7 @@
                     <p class="text-sm text-gray-400">Trenirajte kada vama odgovara, bez ograničenja.</p>
                 </div>
 
-                <div class="p-6 bg-zinc-900 rounded-lg text-center hover:bg-zinc-800 transition">
+                <div class="p-6 bg-zinc-900 rounded-lg text-center hover:bg-zinc-800 transition opacity-0 animate-fade-in" style="animation-delay: 0.2s;">
                     <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
                         <i class="fas fa-dumbbell"></i>
                     </div>
@@ -165,7 +192,7 @@
                     <p class="text-sm text-gray-400">Najnovije mašine brendova Technogym i Rogue.</p>
                 </div>
 
-                <div class="p-6 bg-zinc-900 rounded-lg text-center hover:bg-zinc-800 transition">
+                <div class="p-6 bg-zinc-900 rounded-lg text-center hover:bg-zinc-800 transition opacity-0 animate-fade-in" style="animation-delay: 0.3s;">
                     <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
                         <i class="fas fa-shower"></i>
                     </div>
@@ -173,7 +200,7 @@
                     <p class="text-sm text-gray-400">Prostrane, čiste svlačionice sa saunom.</p>
                 </div>
 
-                <div class="p-6 bg-zinc-900 rounded-lg text-center hover:bg-zinc-800 transition">
+                <div class="p-6 bg-zinc-900 rounded-lg text-center hover:bg-zinc-800 transition opacity-0 animate-fade-in" style="animation-delay: 0.4s;">
                     <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
                         <i class="fas fa-heart-pulse"></i>
                     </div>
@@ -186,6 +213,23 @@
 
     <footer class="bg-zinc-900 border-t border-zinc-800 pt-12 pb-6">
         <div class="container mx-auto px-6">
+            <!-- Newsletter Section -->
+            <div class="mb-12 bg-gradient-to-r from-primary/20 to-red-900/20 p-8 rounded-lg border border-primary/30">
+                <div class="max-w-2xl">
+                    <h3 class="text-2xl font-bold mb-2">Pretplatite se na Newsletter</h3>
+                    <p class="text-gray-400 mb-4">Saznajte prvi o specijalnim ponudama, savetima za treninge i wellness sadržaju.</p>
+                    <form id="newsletterForm" class="flex flex-col sm:flex-row gap-3">
+                        <input type="email" id="newsletterEmail" placeholder="Unesite vašu email adresu" 
+                               class="flex-1 bg-zinc-800 px-4 py-3 rounded border border-zinc-700 focus:border-primary outline-none transition"
+                               required>
+                        <button type="submit" class="bg-primary px-8 py-3 rounded hover:bg-red-700 transition font-bold whitespace-nowrap">
+                            Prijavi se
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Footer Links -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                 <div>
                     <div class="text-primary text-2xl font-bold flex items-center gap-2 mb-4">
@@ -202,7 +246,8 @@
                         <li><a href="index.html" class="hover:text-primary transition">Početna</a></li>
                         <li><a href="about.html" class="hover:text-primary transition">O nama</a></li>
                         <li><a href="programs.html" class="hover:text-primary transition">Programi</a></li>
-                        <li><a href="#" class="hover:text-primary transition">Cenovnik</a></li>
+                        <li><a href="pricing.html" class="hover:text-primary transition">Cenovnik</a></li>
+                        <li><a href="contact.html" class="hover:text-primary transition">Kontakt</a></li>
                     </ul>
                 </div>
                 
@@ -226,7 +271,7 @@
             </div>
             
             <div class="border-t border-zinc-800 pt-6 text-center text-gray-500 text-sm">
-                <p>&copy; 2023 Sport & Wellness. Sva prava zadržana.</p>
+                <p>&copy; 2026 Sport & Wellness. Sva prava zadržana.</p>
             </div>
         </div>
     </footer>
@@ -274,5 +319,6 @@
 
     <script src="main.js"></script>
     <script src="auth.js"></script>
+    <script src="newsletter.js"></script>
 </body>
 </html>

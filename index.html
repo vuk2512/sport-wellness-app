@@ -16,6 +16,15 @@
                     colors: {
                         primary: '#B4121B',
                         dark: '#000000',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
                     }
                 }
             }
@@ -184,45 +193,66 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-zinc-950 py-12">
+    <footer class="bg-zinc-900 border-t border-zinc-800 pt-12 pb-6">
         <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <h3 class="text-primary text-xl font-bold mb-4">
-                        <i class="fas fa-dumbbell"></i> SPORT & WELLNESS
-                    </h3>
-                    <p class="text-gray-400">Tvoj put ka boljem zdravlju počinje ovde.</p>
+            <!-- Newsletter Section -->
+            <div class="mb-12 bg-gradient-to-r from-primary/20 to-red-900/20 p-8 rounded-lg border border-primary/30">
+                <div class="max-w-2xl">
+                    <h3 class="text-2xl font-bold mb-2">Pretplatite se na Newsletter</h3>
+                    <p class="text-gray-400 mb-4">Saznajte prvi o specijalnim ponudama, savetima za treninge i wellness sadržaju.</p>
+                    <form id="newsletterForm" class="flex flex-col sm:flex-row gap-3">
+                        <input type="email" id="newsletterEmail" placeholder="Unesite vašu email adresu" 
+                               class="flex-1 bg-zinc-800 px-4 py-3 rounded border border-zinc-700 focus:border-primary outline-none transition"
+                               required>
+                        <button type="submit" class="bg-primary px-8 py-3 rounded hover:bg-red-700 transition font-bold whitespace-nowrap">
+                            Prijavi se
+                        </button>
+                    </form>
                 </div>
-                
+            </div>
+
+            <!-- Footer Links -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                 <div>
-                    <h4 class="font-bold mb-4">Linkovi</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="about.html" class="hover:text-primary transition">O nama</a></li>
-                        <li><a href="#" class="hover:text-primary transition">Uslovi korišćenja</a></li>
-                        <li><a href="#" class="hover:text-primary transition">Privatnost</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-bold mb-4">Kontakt</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><i class="fas fa-envelope"></i> info@sportwellness.rs</li>
-                        <li><i class="fas fa-phone"></i> +381 11 123 4567</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Beograd, Srbija</li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-bold mb-4">Društvene Mreže</h4>
-                    <div class="flex space-x-4 text-2xl">
-                        <a href="#" class="hover:text-primary transition"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="hover:text-primary transition"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="hover:text-primary transition"><i class="fab fa-twitter"></i></a>
+                    <div class="text-primary text-2xl font-bold flex items-center gap-2 mb-4">
+                        <i class="fas fa-dumbbell"></i> Sport & Wellness
                     </div>
+                    <p class="text-gray-400 text-sm">
+                        Vaš partner u postizanju vrhunske forme i zdravog načina života.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold mb-4 text-lg">Brzi Linkovi</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="index.html" class="hover:text-primary transition">Početna</a></li>
+                        <li><a href="about.html" class="hover:text-primary transition">O nama</a></li>
+                        <li><a href="programs.html" class="hover:text-primary transition">Programi</a></li>
+                        <li><a href="pricing.html" class="hover:text-primary transition">Cenovnik</a></li>
+                        <li><a href="contact.html" class="hover:text-primary transition">Kontakt</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold mb-4 text-lg">Kontakt</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-map-marker-alt text-primary"></i>
+                            Bulevar Oslobođenja 123
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-phone text-primary"></i>
+                            +381 60 123 4567
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-envelope text-primary"></i>
+                            info@sportwellness.rs
+                        </li>
+                    </ul>
                 </div>
             </div>
             
-            <div class="border-t border-zinc-800 pt-8 text-center text-gray-400">
+            <div class="border-t border-zinc-800 pt-6 text-center text-gray-500 text-sm">
                 <p>&copy; 2026 Sport & Wellness. Sva prava zadržana.</p>
             </div>
         </div>
@@ -271,5 +301,6 @@
 
     <script src="main.js"></script>
     <script src="auth.js"></script>
+    <script src="newsletter.js"></script>
 </body>
 </html>

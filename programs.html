@@ -16,6 +16,15 @@
                     colors: {
                         primary: '#B4121B',
                         dark: '#000000',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
                     }
                 }
             }
@@ -128,7 +137,7 @@
                             <span class="text-gray-400"><i class="fas fa-clock"></i> 30 min</span>
                         </div>
                         <h3 class="text-2xl font-bold mb-2">HIIT Cardio</h3>
-                        <p class="text-gray-400 mb-4">Visoko-intenzivni intervalni trening za sagorevanje masti.</p>
+                        <p class="text-gray-400 mb-4">Visoko-intenzivni intervalski trening za sagorevanje masti.</p>
                         <ul class="space-y-2 mb-4 text-sm text-gray-400">
                             <li><i class="fas fa-check text-primary"></i> 3-5 treninga nedeljno</li>
                             <li><i class="fas fa-check text-primary"></i> Brzo sagorevanje kalorija</li>
@@ -220,7 +229,7 @@
                             <span class="text-gray-400"><i class="fas fa-clock"></i> 45 min</span>
                         </div>
                         <h3 class="text-2xl font-bold mb-2">Pilates Core</h3>
-                        <p class="text-gray-400 mb-4">Jačanje jezgra i poboljšanje drŽanja tela.</p>
+                        <p class="text-gray-400 mb-4">Jačanje jezgra i poboljšanje držanja tela.</p>
                         <ul class="space-y-2 mb-4 text-sm text-gray-400">
                             <li><i class="fas fa-check text-primary"></i> 3 treninga nedeljno</li>
                             <li><i class="fas fa-check text-primary"></i> Fokus na core</li>
@@ -250,9 +259,68 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-zinc-950 py-12">
-        <div class="container mx-auto px-6 text-center text-gray-400">
-            <p>&copy; 2026 Sport & Wellness. Sva prava zadržana.</p>
+    <footer class="bg-zinc-900 border-t border-zinc-800 pt-12 pb-6">
+        <div class="container mx-auto px-6">
+            <!-- Newsletter Section -->
+            <div class="mb-12 bg-gradient-to-r from-primary/20 to-red-900/20 p-8 rounded-lg border border-primary/30">
+                <div class="max-w-2xl">
+                    <h3 class="text-2xl font-bold mb-2">Pretplatite se na Newsletter</h3>
+                    <p class="text-gray-400 mb-4">Saznajte prvi o specijalnim ponudama, savetima za treninge i wellness sadržaju.</p>
+                    <form id="newsletterForm" class="flex flex-col sm:flex-row gap-3">
+                        <input type="email" id="newsletterEmail" placeholder="Unesite vašu email adresu" 
+                               class="flex-1 bg-zinc-800 px-4 py-3 rounded border border-zinc-700 focus:border-primary outline-none transition"
+                               required>
+                        <button type="submit" class="bg-primary px-8 py-3 rounded hover:bg-red-700 transition font-bold whitespace-nowrap">
+                            Prijavi se
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Footer Links -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="text-primary text-2xl font-bold flex items-center gap-2 mb-4">
+                        <i class="fas fa-dumbbell"></i> Sport & Wellness
+                    </div>
+                    <p class="text-gray-400 text-sm">
+                        Vaš partner u postizanju vrhunske forme i zdravog načina života.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold mb-4 text-lg">Brzi Linkovi</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="index.html" class="hover:text-primary transition">Početna</a></li>
+                        <li><a href="about.html" class="hover:text-primary transition">O nama</a></li>
+                        <li><a href="programs.html" class="hover:text-primary transition">Programi</a></li>
+                        <li><a href="pricing.html" class="hover:text-primary transition">Cenovnik</a></li>
+                        <li><a href="contact.html" class="hover:text-primary transition">Kontakt</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold mb-4 text-lg">Kontakt</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-map-marker-alt text-primary"></i>
+                            Bulevar Oslobođenja 123
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-phone text-primary"></i>
+                            +381 60 123 4567
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-envelope text-primary"></i>
+                            info@sportwellness.rs
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-zinc-800 pt-6 text-center text-gray-500 text-sm">
+                <p>&copy; 2026 Sport & Wellness. Sva prava zadržana.</p>
+            </div>
         </div>
     </footer>
 
@@ -346,5 +414,6 @@
     </script>
     <script src="main.js"></script>
     <script src="auth.js"></script>
+    <script src="newsletter.js"></script>
 </body>
 </html>

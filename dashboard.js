@@ -106,8 +106,13 @@ function updateGoals(workouts) {
     const weeklyWorkouts = workouts.filter(w => new Date(w.workout_date) >= weekStart).length;
     const monthlyWorkouts = workouts.filter(w => new Date(w.workout_date) >= monthStart).length;
     
-    const weeklyGoal = 4;
-    const monthlyGoal = 16;
+    const currentDay = today.getDate();
+    const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate(); // Januar ima 31
+
+    const daysRemaining = lastDayOfMonth - currentDay;
+
+    const weeklyGoal = 5;
+    const monthlyGoal = daysRemaining;
     
     const weeklyPercentage = Math.min((weeklyWorkouts / weeklyGoal) * 100, 100);
     const monthlyPercentage = Math.min((monthlyWorkouts / monthlyGoal) * 100, 100);

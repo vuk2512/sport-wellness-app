@@ -172,6 +172,23 @@ class Database {
 // Initialize database
 const db = new Database();
 
+// Handle "Kreni Sada" button - check login before redirecting to dashboard
+function handleStartNow() {
+    const currentUser = localStorage.getItem('currentUser');
+    
+    if (!currentUser) {
+        // Show auth modal if not logged in
+        const authModal = document.getElementById('authModal');
+        if (authModal) {
+            authModal.classList.remove('hidden');
+        }
+    } else {
+        // Redirect to dashboard if logged in
+        window.location.href = 'dashboard.html';
+    }
+}
+
 // Export for use in other files
 window.db = db;
 window.updateAuthUI = updateAuthUI;
+window.handleStartNow = handleStartNow;
